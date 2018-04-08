@@ -24,8 +24,6 @@ ROOT="${PARENTDIR}/source"
 NEMOH_FORTRAN="${ROOT}/NemohImproved/Nemoh"
 FORTRAN_BUILD="${ROOT}/NemohImproved/FortranBuild"
 
-
-
 echo "Root is" $ROOT
 
 if [ "$OSTYPE" = "Linux" ];then
