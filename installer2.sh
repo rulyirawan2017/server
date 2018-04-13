@@ -28,15 +28,9 @@ echo "Root is" $ROOT
 
 if [ "$OSTYPE" = "Linux" ];then
 	echo "Installing to $ROOT"
-	
-	sudo add-apt-repository main
-	sudo add-apt-repository universe
-	sudo add-apt-repository restricted
-	sudo add-apt-repository multiverse
-	sudo apt-get install software-properties-common
-	sudo apt-add-repository universe
-	sudo apt-get update
-	sudo apt-get install python-dev
+	conda install numpy=1.9.2 cherrypy=3.8.0 cython=0.21 h5py=2.3.1 scipy=0.14.0 jmespath=0.9.3 
+	conda install capturer vtk progressbar nose pandas sympy ipython notebook vtk=5
+	pip install logutils
 	echo "Installing GFortran and gcc"
 	sudo apt-get --yes --force-yes install build-essential gfortran gcc
 
@@ -48,7 +42,7 @@ if [ "$OSTYPE" = "Linux" ];then
  	
 	echo "Instaling atlas"
 	sudo apt-get install libatlas-base-dev libatlas3gf-base
-	
+
 	echo "Installing nglib"
 	sudo apt-get --yes --force-yes install libnglib-4.9.13 netgen netgen-headers libnglib-dev
 
@@ -60,10 +54,10 @@ if [ "$OSTYPE" = "Linux" ];then
 
 	echo "Installing vtk"
 	sudo apt-get --yes --force-yes install libvtk5-dev
-
+	sudo apt-get install  libvtk-java tcl-vtk libvtk5-qt4-dev #python-vtk
 	echo "Installing python dependencies"
-	#sudo apt-get --yes --force-yes install  python-scipy python-matplotlib python-h5py python-cherrypy3 python-pip ipython ipython-notebook python-pandas python-sympy python-nose python-progressbar python-vtk
-#python-numpy
+	#sudo apt-get --yes --force-yes install python-numpy python-scipy python-matplotlib python-h5py python-cherrypy3 python-pip ipython ipython-notebook python-pandas python-sympy python-nose python-progressbar #python-vtk
+
 	echo "Installing curl"
 	sudo apt-get --yes --force-yes install curl
 
@@ -93,19 +87,19 @@ if [ "$OSTYPE" = "Linux" ];then
 
 	chmod +x "$INSTALL_PATH"/openwarpgui/bundled/mesh-generator/bin/nglib_mesh
 
-	#chmod +x "$INSTALL_PATH"/openwarpgui/bundled/paraview_linux/bin/paraview
+	chmod +x "$INSTALL_PATH"/openwarpgui/bundled/paraview_linux/bin/paraview
 
 
 	# Avoiding any problem by using the system pip and python
-	pip install -r "$ROOT/openwarpgui/requirements.txt"
+	#sudo /usr/bin/pip install -r "$ROOT/openwarpgui/requirements.txt"
 	#sudo /usr/bin/pip install numpy --upgrade
 	
 	python setup.py cleanall
 	python setup.py build_ext --inplace
 	
 	# Downloading paraview using curl 
-	#sudo curl -L -o ParaView-4.1.0-Linux-64bit-glibc-2.3.6.tar.gz  https://www.dropbox.com/s/coknwtj453wkulb/ParaView-4.1.0-Linux-64bit-glibc-2.3.6.tar.gz?dl=1
-	#tar -xvzf ParaView-4.1.0-Linux-64bit-glibc-2.3.6.tar.gz -C $INSTALL_PATH/openwarpgui/bundled/paraview_linux --strip-components=1
+	sudo curl -L -o ParaView-4.1.0-Linux-64bit-glibc-2.3.6.tar.gz  https://www.dropbox.com/s/coknwtj453wkulb/ParaView-4.1.0-Linux-64bit-glibc-2.3.6.tar.gz?dl=1
+	tar -xvzf ParaView-4.1.0-Linux-64bit-glibc-2.3.6.tar.gz -C $INSTALL_PATH/openwarpgui/bundled/paraview_linux --strip-components=1
 
 	echo "OpenWarp Installation successfully completed"
 
